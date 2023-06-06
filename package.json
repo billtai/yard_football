@@ -1,0 +1,13 @@
+{
+  "name": "YFM",
+  "version": "1.0.0",
+  "scripts": {
+    "install": "pip install -r requirements.txt",
+    "start": "source env/bin/activate&&python app.py",
+    "create-migrations": "source env/bin/activate&&flask db init",
+    "migrate": "source env/bin/activate&&flask db migrate&&flask db upgrade",
+    "seeder": "source env/bin/activate&&flask db-seed",
+    "truncate": "source env/bin/activate&&flask db-truncate",
+    "general_revision": "source env/bin/activate&&flask db revision --rev-id 3429566cd7ad"
+  }
+}
