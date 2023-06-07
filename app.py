@@ -3,7 +3,7 @@ from flask import Flask
 from settings.useEvironment import ENVIRONMENT
 from api import blueprint as documented_endpoint
 from flask_migrate import Migrate
-from database import db, ma, redis_client, mongodb
+from database import db, ma
 from settings.useJWT import jwt_token, bcrypt
 from settings.useApscheduler import scheduler
 from flask import request
@@ -73,9 +73,6 @@ jwt_token.init_app(app)
 bcrypt.init_app(app)
 migrate = Migrate(app, db, compare_type=True)
 
-#config redis
-redis_client.init_app(app)
-mongodb.init_app(app)
 
 # sched.start()
 scheduler.init_app(app)
