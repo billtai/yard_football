@@ -3,25 +3,16 @@ from flask import Flask
 from settings.useEvironment import ENVIRONMENT
 from api import blueprint as documented_endpoint
 from flask_migrate import Migrate
-from database import db, ma, redis_client, mongodb
+from database import db, ma
 from settings.useJWT import jwt_token, bcrypt
 from settings.useApscheduler import scheduler
-from flask import request
 import json
 import pytz
 from datetime import datetime
 from flask.logging import default_handler
-import logging
-from utils.UserGeneralHelper import UserGeneralHelper
-from utils.hashCodeHelper import hash_code
-from utils.messageHelper import MessageHelper
-from utils.responseHelper import ResponseHelper, check_message_token, check_message_validate_field
 from utils.timeHelpers import TimeHelper
-from flask.cli import with_appcontext
-import traceback
-from werkzeug.exceptions import HTTPException
-from utils.telegram import send
-from flask_jwt_extended import get_jwt, verify_jwt_in_request
+from utils.responseHelper import check_message_token
+
 
 app = Flask(__name__, static_folder='assets')
 
@@ -73,9 +64,6 @@ jwt_token.init_app(app)
 bcrypt.init_app(app)
 migrate = Migrate(app, db, compare_type=True)
 
-#config redis
-redis_client.init_app(app)
-mongodb.init_app(app)
 
 # sched.start()
 scheduler.init_app(app)
@@ -83,19 +71,6 @@ scheduler.start()
 
 # test swagger
 app.register_blueprint(documented_endpoint)
-
-# @app.errorhandler(Exception)
-# def handle_exception(e):
-#     code = 500
-#     if isinstance(e, HTTPException):
-#         code = e.code
-#     # tracks = traceback.format_exc().split(' File')
-#     # message = str(tracks[-1])
-#     message = traceback.format_exc()
-#     url = str(request.url)
-#     send(f"🆘 <b>{url}</b>\nLỗi {code}\n{message}")
-#     return jsonify({"message": f"Đã xuất hiện lỗi trong quá trình xử lý"}), code
-
 
 @app.route('/')
 def index():
@@ -119,51 +94,12 @@ def time_zone():
     return "<pre>"+json.dumps(data, indent=4, sort_keys=True, separators=(',', ': '))+"</pre>"
 
 
-# @app.before_request
-# def pre_request_logging():
-#     # Lấy thông tin user đăng nhập
-#     ten_dang_nhap = None
-#     payload = None
-#     try:
-#         verify_jwt_in_request()
-#         jti = get_jwt()
-#         user = UserGeneralHelper.get_thong_tin_user_dang_nhap()
-#         if user is None:
-#             return ResponseHelper.on_error(message=MessageHelper.message_custom('Hết phiên đăng nhập'), code=401)
-#         ten_dang_nhap = jti.get('ten_dang_nhap')
-#     except:
-#         pass
-
-#     from_ip = request.environ['REMOTE_ADDR'] if request.environ.get('HTTP_X_FORWARDED_FOR') is None else request.environ['HTTP_X_FORWARDED_FOR']
-#     try:
-#         payload = json.dumps(request.get_json(force=True))
-#     except:
-#         pass
-    
-#     try:
-#         # Save to log
-#         req_log = ApiLog(
-#             ten_dang_nhap = ten_dang_nhap,
-#             ip = from_ip,
-#             url = f"{request.method}: {request.url}",
-#             loai = 'request',
-#             noi_dung = payload,
-#             created_at = datetime.now()
-#         )
-#         req_log.save()
-#     except:
-#         pass
-
 @app.after_request
 def after_request(response):
 
-    if int(response.status_code) >= 400 and int(response.status_code) < 500:
-        response = check_message_validate_field(response)
     if int(response.status_code) == 401:
         response = check_message_token(response)
-    # response.data = hash_code(response.data.decode("utf-8"))
     return response
-
 # Database creation flask commands
 
 

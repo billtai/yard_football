@@ -1,4 +1,3 @@
-from database.models.blacklist_tokens import BlacklistTokenModel
 from utils.timeHelpers import TimeHelper
 from database import base
 from settings.useJWT import bcrypt
@@ -33,7 +32,7 @@ class AccuracyModel(base):
     @classmethod
     def logout(self, jti):
         token_block = dict()
-        token_block = BlacklistTokenModel({"jti": jti})
+        # token_block = BlacklistTokenModel({"jti": jti})
         token_block.create_to_db()
 
     @classmethod

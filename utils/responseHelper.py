@@ -1,10 +1,6 @@
-from utils.hashCodeHelper import hash_code
-from utils.messageHelper import TranslateMessageHelper
 from flask.json import dumps, loads
 import logging as logging
 import traceback
-from utils.telegram import send
-from flask import request
 
 def get_first_order_dict(message):
     try:
@@ -79,17 +75,3 @@ def check_message_token(response):
     return response
 
 
-def check_message_validate_field(response):
-    response_data = dict()
-    try:
-        response_data = loads(response.get_data())
-    except:
-        return response
-    if 'errors' in response_data:
-        res = ""
-        for k, v in response_data['errors'].items():
-            res = TranslateMessageHelper.message_to_vi(k, v)
-            break
-        response_data['message'] = res
-        response = create_custom_error_lib(response_data, response, 'errors', 400)
-    return response

@@ -6,7 +6,7 @@ class Config(object):
     JSON_SORT_KEYS = False
     # ConnectString Database Main
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@localhost/{}'.format(
-        'root', '', 'yard_football_manager')
+        'root', '', 'yard_football')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # ConnectString Database Extra
     SQLALCHEMY_BINDS = {

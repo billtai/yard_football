@@ -40,10 +40,6 @@ class MessageHelper:
     DELETE_FAILED = 'Xóa thất bại'
     DELETE_SUCCESS = 'Xóa thành công'
     ID_DELETED = 'ID không tồn tại'
-    NAME_AGENCY_EXIST = 'Tên đại lý đã tồn tại'
-    CODE_AGENCY_EXIST = 'Mã đại lý đã tồn tại'
-    UPDATE_NO_CHANGE = 'Không có thay đổi'
-    ID_AGENCY_NO_FOUND = 'Đại lý không tồn tại'
     USER_NAME_BLOCK = 'Tên đăng nhập đã bị khóa'
     ORDER_A_Z_STATUS = 'Sắp xếp theo A-Z chỉ chấp nhận 0 và 1'
     NOT_FIELD_MODEL = 'Không tồn tại tên cột'
@@ -78,25 +74,9 @@ class MessageHelper:
     BOOLEAN_ACCEPT = ' chỉ chấp nhận 0 và 1'
     ADD_SUCCESS = 'Thêm thành công'
     ADD_FAIL = 'Thêm thất bại'
-    ID_ADD_DUPLICATE = 'Sân bay trùng'
-    ID_AIRPORT_DUPLICATE = 'Sân bay đi trùng với Sân bay đến'
-    ID_AIRPORT_NOT_FOUND = 'Sân bay đi hoặc sân bay đến không tồn tại'
     INVALID_FOREIGN_FORMAT_VALIDATE = ' không đúng format'
-    NAME_FIGHT_ROUTE_EXIST = 'Tên tuyến bay tồn tại'
-    NAME_AREA_EXIST = 'Tên khu vực tồn tại'
-    NAME_COUNTRY_EXIST = 'Tên quốc gia tồn tại'
-    NAME_COUNTRY_NOT_EXIST = 'Tên quốc gia không tồn tại'
-    ID_COUNTRY_DELETED = 'Quốc gia không tồn tại'
-    ID_AREA_DELETED = 'Khu vực không tồn tại'
-    NAME_PROVINCE_EXIST = 'Tên tỉnh tồn tại'
-    ID_PROVINCE_DELETED = 'Tỉnh không tồn tại'
-    ID_AIRPORT_GO_DELETED = 'Sân bay đi không tồn tại'
-    ID_AIRPORT_ARRIVE_DELETED = 'Sân bay đến không tồn tại'
-    NAME_AIRPORT_EXIST = 'Tên Sân bay đã tồn tại'
-    NAME_AGENCY_OWNER_EXIST = 'Tên người đại diện đã tồn tại'
     ID_ROLE_NOT_FOUND = 'Vai trò không tồn tại'
     UN_AUTHORIZATION = 'Không xác thực'
-    CHECK_TYPE_CUSTOMER = 'Đại lý đã có chủ đại lý'
     CHECK_ROLE = 'Không đủ quyền truy cập'
 
     @classmethod
@@ -221,24 +201,6 @@ class MessageHelper:
         return f'{field.capitalize()} phải khác nhau'
 
 
-dictory_field = {
-    'ten_dang_nhap': 'Tên đăng nhập',
-    'mat_khau': 'Mật khẩu',
-    'ten': 'Tên',
-    'ma_dai_ly': 'Mã đại lý',
-    'trang_thai': 'Trạng thái',
-    'dai_ly_id': 'Đại lý',
-    'loai_nhan_vien_id': 'Loại nhân viên',
-    'mat_khau_cu': 'Mật khẩu cũ',
-    'mat_khau_moi': 'Mật khẩu mới',
-    'type': 'Loại',
-    'value': 'Giá trị',
-    'san_bay_di_id': 'Sân bay đi',
-    'san_bay_den_id': 'Sân bay đến',
-    'khu_vuc_id': 'Khu vực',
-    'quoc_gia_id': 'Quốc gia',
-}
-
 
 def get_message_translate(message=''):
     if 'is too short' in message:
@@ -251,13 +213,3 @@ def get_message_translate(message=''):
     return message
 
 
-class TranslateMessageHelper:
-    def message_to_vi(fields='', message=''):
-        msg = ""
-        fds = ""
-        if len(fields) > 0:
-            fds = dictory_field[fields] if fields in dictory_field else fields
-        msg = get_message_translate(message)
-        if 'in an uploaded file' in message:
-            return 'Vui lòng chọn ảnh'
-        return fds + " " + msg
