@@ -182,25 +182,3 @@ class BaseModel(db.Model):
         if hasattr(cls, 'deleted_at'):
             return db.session.query(func.count(cls.id)).filter(cls.deleted_at == None).filter(fields_condition).scalar()
         return db.session.query(func.count(cls.id)).filter(fields_condition).scalar()
-
-    @classmethod
-    def get_key_value(self) -> Query:
-        """
-        table.columns => [column_1,value_1,column_2,value_2]
-        """
-        filter_column   = []
-
-        for column in self.__table__.columns:
-            k_col       = column.key
-            if k_col not in ['created_at', 'updated_at', 'deleted_at']:
-                col_sql = self.__table__.columns[k_col]
-                if k_col in ['ngay_sinh']:
-                    # Nếu là columns ngày sinh thì format lại VD DB: SELECT DATE_FORMAT("2017-06-15", "%Y");
-                    col_sql = func.date_format(col_sql,TimeHelper.FORMAT_TIME_D_M_Y)
-                if k_col in ['ngay_di','ngay_het_han','ngay_tao_giao_dich','ngay_den']:
-                    col_sql = func.date_format(col_sql,TimeHelper.SQL_FORMAT_TIME_D_M_Y__h_m_s)
-                filter_column.append(k_col)
-                filter_column.append(col_sql)
-
-        return filter_column
-    

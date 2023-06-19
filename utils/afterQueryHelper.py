@@ -37,8 +37,7 @@ class AfterQueryHelper:
             data => paging
         """
 
-        number_page = math.floor(count / limit) + (self.PAGE_CURRENT if count %
-                                                   limit == self.PAGE_CURRENT else self.INCREASE_CURRENT)
+        number_page = math.floor(count / limit) + (self.PAGE_CURRENT if count % limit == self.PAGE_CURRENT else self.INCREASE_CURRENT)
 
         return {
             "content": data,

@@ -26,8 +26,7 @@ class AccuracyModel(base):
     def refresh(self):
         current_user = get_jwt_identity()
         access_token = create_access_token(identity=current_user)
-        token_expired = TimeHelper.getSeconds(
-            current_app.config['TOKEN_EXPIRED'])
+        token_expired = TimeHelper.getSeconds(current_app.config['TOKEN_EXPIRED'])
         return ({"access_token": access_token, "token_expired": token_expired}, 200)
 
     @classmethod

@@ -38,6 +38,9 @@ class TimeHelper(enumerate):
     SECONDS = auto()
     MINUTES = auto()
 
+    @classmethod
+    def getSeconds(self, days):
+        return days*24*60*60
 
     @classmethod
     def localTzname(self):
