@@ -16,4 +16,4 @@ class List(Resource):
         """
         List user
         """
-        pass
+        return 123

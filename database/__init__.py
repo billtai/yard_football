@@ -5,9 +5,7 @@ from flask_marshmallow import Marshmallow
 db = SQLAlchemy()
 
 from database.models import BaseModel
-base = db._make_declarative_base(model=BaseModel)
+base = db.make_declarative_base(model=BaseModel)
 
 # Initialize Marshmallow
 ma = Marshmallow()
-
-

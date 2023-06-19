@@ -26,7 +26,5 @@ class UsersModel(AccuracyModel):
     # Constructor
 
     def __init__(self, data):
-        for key in data:
-            value = data[key]
-            setattr(self, key, value)
+        super().__init__(data)
         pass
