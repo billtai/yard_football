@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, DateTime, Text
+from sqlalchemy import Boolean, Column, Integer, String, DateTime
 from sqlalchemy.dialects.mysql import BIGINT
 from database import db
 from database.models.accuracy import AccuracyModel

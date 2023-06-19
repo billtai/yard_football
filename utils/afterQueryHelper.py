@@ -32,10 +32,6 @@ class AfterQueryHelper:
         return model_json
 
     @classmethod
-    def get_remove_dup_dict(self, list_duplicate=[]):
-        return list(dict.fromkeys(list_duplicate))
-
-    @classmethod
     def create_response_paging(self, page=0, limit=25, data=[], count=0):
         """
             data => paging

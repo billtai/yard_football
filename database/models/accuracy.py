@@ -3,6 +3,7 @@ from database import base
 from settings.useJWT import bcrypt
 from flask_jwt_extended import create_access_token, get_jwt_identity
 from flask import current_app
+from database.models.blacklist_tokens import BlacklistTokenModel
 
 
 class AccuracyModel(base):
@@ -32,7 +33,7 @@ class AccuracyModel(base):
     @classmethod
     def logout(self, jti):
         token_block = dict()
-        # token_block = BlacklistTokenModel({"jti": jti})
+        token_block = BlacklistTokenModel({"jti": jti})
         token_block.create_to_db()
 
     @classmethod
