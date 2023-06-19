@@ -8,12 +8,11 @@ from database.models.blacklist_tokens import BlacklistTokenModel
 
 class AccuracyModel(base):
     __abstract__ = True
-
     # Constructor
     def __init__(self, data):
         for key in data:
             value = data[key]
-            if key == 'mat_khau':
+            if key == 'password':
                 value = bcrypt.generate_password_hash(data[key])
             setattr(self, key, value)
         pass
